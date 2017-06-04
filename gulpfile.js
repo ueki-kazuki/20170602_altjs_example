@@ -3,10 +3,6 @@ var sass = require("gulp-sass");
 var autoprefixer = require("gulp-autoprefixer");
 var minify = require("gulp-minify");
 
-gulp.task('hello', function() {
-  console.log('Hello gulp!');
-});
-
 gulp.task('sass', function() {
   var stream = gulp.src('sass/*.scss')
     .pipe(sass())
@@ -16,5 +12,5 @@ gulp.task('sass', function() {
   return stream;
 });
 
-gulp.task('default', ['hello','sass']);
+gulp.task('default', ['sass']);
 
