@@ -40,7 +40,7 @@ gulp.task('html', function () {
 //gulp.task('default', ['scss','js']);
 gulp.task("watch", function() {
     gulp.watch(["ts/*.ts"],["js"]);
-    gulp.watch("scss/*.scss",["scss"]);
+    gulp.watch(["scss/*.scss"],["scss"]);
     gulp.watch(['./*.html'], ['html']);
 });
 
