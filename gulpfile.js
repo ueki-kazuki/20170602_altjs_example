@@ -1,9 +1,10 @@
 var gulp = require('gulp');
-var sass = require("gulp-sass");
+var scss = require("gulp-scss");
 var autoprefixer = require("gulp-autoprefixer");
 var minify = require("gulp-minify");
 var ts = require("gulp-typescript");
 var uglify = require("gulp-uglify");
+var connect = require('gulp-connect');
  
 gulp.task("js", function() {
     gulp.src(["ts/*.ts"])
@@ -15,14 +16,32 @@ gulp.task("js", function() {
         .pipe(gulp.dest("js"));
 });
 
-gulp.task('sass', function() {
-  var stream = gulp.src('sass/*.scss')
-    .pipe(sass())
+gulp.task('scss', function() {
+  var stream = gulp.src('scss/*.scss')
+    .pipe(scss())
     .pipe(autoprefixer())
     .pipe(minify())
     .pipe(gulp.dest('css'));
   return stream;
 });
 
-gulp.task('default', ['sass','js']);
+gulp.task('connect', function() {
+  connect.server({
+    root: './',
+    livereload: true
+  });
+});
+ 
+gulp.task('html', function () {
+  gulp.src('./*.html')
+    .pipe(connect.reload());
+});
 
+//gulp.task('default', ['scss','js']);
+gulp.task("watch", function() {
+    gulp.watch(["ts/*.ts"],["js"]);
+    gulp.watch("scss/*.scss",["scss"]);
+    gulp.watch(['./*.html'], ['html']);
+});
+
+gulp.task("default", ['connect', 'watch']);
